@@ -57,4 +57,47 @@ describe("Category Unit Test", () => {
     });
 
   })
+
+  test("testing getter of name field", () => {
+    const category = new Category({ name: "Davidson" });
+    expect(category.name).toBe("Davidson");
+  })
+  test("testing getter and setter of field description", () => {
+    let category = new Category({ name: "Davidson" });
+    expect(category.description).toBeNull();
+
+    category = new Category({ name: "Davidson", description: "something" });
+    expect(category.description).toBe("something")
+
+    category['description'] = "other thing";
+    expect(category.description).toBe("other thing");
+
+    category['description'] = undefined;
+    expect(category.description).toBeNull();
+  })
+
+  test('testing getter and setter of is_active field', () => {
+    let category = new Category({ name: "Davidson" });
+    expect(category.is_active).toBeTruthy()
+
+    category = new Category({ name: "Davidson" });
+    category['is_active'] = true;
+    expect(category.is_active).toBe(true);
+
+    category = new Category({ name: "Davidson", is_active: false });
+    expect(category.is_active).toBeFalsy()
+
+    category = new Category({ name: "Davidson", is_active: false });
+    expect(category.is_active).toBe(false);
+  })
+
+  test('testing getter of created_at field', () => {
+    let created_at = new Date();
+    let category = new Category({ name: "Davidson" });
+    expect(category.created_at).toBeInstanceOf(Date);
+
+    category = new Category({ name: "Davidson", created_at });
+    expect(category.created_at).toBe(created_at)
+
+  })
 })

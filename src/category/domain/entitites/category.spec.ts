@@ -1,4 +1,5 @@
 import Category from "./category"
+import { validate as uuidValidate } from 'uuid'
 import { omit } from 'lodash'
 
 describe("Category Unit Test", () => {
@@ -56,6 +57,24 @@ describe("Category Unit Test", () => {
       created_at
     });
 
+  })
+
+  test('testing id field', () => {
+    let category = new Category({ name: "Davidson" });
+    expect(category.id).not.toBeNull();
+    expect(uuidValidate(category.id)).toBeTruthy();
+
+    category = new Category({ name: "Davidson" }, null);
+    expect(category.id).not.toBeNull();
+    expect(uuidValidate(category.id)).toBeTruthy();
+
+    category = new Category({ name: "Davidson" }, undefined);
+    expect(category.id).not.toBeNull();
+    expect(uuidValidate(category.id)).toBeTruthy();
+
+    category = new Category({ name: "Davidson" }, 'b8fd48cb-fcc0-4cfd-adf4-0ac91c387a9b');
+    expect(category.id).not.toBeNull();
+    expect(uuidValidate(category.id)).toBeTruthy()
   })
 
   test("testing getter of name field", () => {

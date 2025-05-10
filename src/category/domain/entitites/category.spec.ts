@@ -1,6 +1,6 @@
-import Category from "./category"
-import { validate as uuidValidate } from 'uuid'
+import Category, { CategoryProperties } from "./category"
 import { omit } from 'lodash'
+import UniqueEntityId from "../../../@seedwork/domain/unique-entity-id.ov"
 
 describe("Category Unit Test", () => {
 
@@ -60,21 +60,23 @@ describe("Category Unit Test", () => {
   })
 
   test('testing id field', () => {
-    let category = new Category({ name: "Davidson" });
-    expect(category.id).not.toBeNull();
-    expect(uuidValidate(category.id)).toBeTruthy();
+    type CategoryType = {
+      props: CategoryProperties,
+      id?: UniqueEntityId
+    }
 
-    category = new Category({ name: "Davidson" }, null);
-    expect(category.id).not.toBeNull();
-    expect(uuidValidate(category.id)).toBeTruthy();
+    const data: CategoryType[] = [
+      { props: { name: "Davidson" } },
+      { props: { name: "Davidson" }, id: null },
+      { props: { name: "Davidson" }, id: undefined },
+      { props: { name: "Davidson" }, id: new UniqueEntityId() },
+    ]
 
-    category = new Category({ name: "Davidson" }, undefined);
-    expect(category.id).not.toBeNull();
-    expect(uuidValidate(category.id)).toBeTruthy();
-
-    category = new Category({ name: "Davidson" }, 'b8fd48cb-fcc0-4cfd-adf4-0ac91c387a9b');
-    expect(category.id).not.toBeNull();
-    expect(uuidValidate(category.id)).toBeTruthy()
+    data.forEach((i) => {
+      const category = new Category(i.props, i.id);
+      expect(category.id).not.toBeNull();
+      expect(category.id).toBeInstanceOf(UniqueEntityId)
+    })
   })
 
   test("testing getter of name field", () => {

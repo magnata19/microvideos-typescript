@@ -1,6 +1,6 @@
-import InvalidUuidError from "../../@seedwork/errors/invalid-uuid.error"
+import InvalidUuidError from '../../../errors/invalid-uuid.error'
 import { validate as uuidValidate } from 'uuid'
-import UniqueEntityId from "./unique-entity-id.ov"
+import UniqueEntityId from '../unique-entity-id.ov'
 
 const spyOnValidate = () => {
   return jest.spyOn(UniqueEntityId.prototype as any, "validate");
@@ -26,7 +26,7 @@ describe('UniqueEntityId Unit Tests', () => {
 
   it('should accept without uuid passed in constructor', () => {
     const uniqueUuid = new UniqueEntityId();
-    expect(uuidValidate(uniqueUuid.id)).toBeTruthy();
+    expect(uuidValidate(uniqueUuid.value)).toBeTruthy();
     expect(validateSpy).toHaveBeenCalled();
   })
 })

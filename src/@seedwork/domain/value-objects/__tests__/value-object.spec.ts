@@ -32,4 +32,10 @@ describe('Value Object Unit Tests', () => {
       expect(stub + "").toBe(value.expected)
     })
   })
+
+  it('should update value', () => {
+    const vo = new StubValueObject({ prop1: 'some value', nested: { prop2: 'value' } })
+    vo["_value"].nested.prop2 = 'mudou'
+    console.log(vo)
+  })
 })

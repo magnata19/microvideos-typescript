@@ -1,4 +1,4 @@
-import Entity from '@seedwork/domain/entity/entity';
+import Entity from '../../../@seedwork/domain/entity/entity';
 import UniqueEntityId from '../../../@seedwork/domain/value-objects/unique-entity-id.ov';
 
 export type CategoryProperties = {
@@ -41,7 +41,3 @@ export default class Category extends Entity<CategoryProperties> {
     return this.props.created_at;
   }
 }
-
-const category = new Category({ name: "Davidson" });
-const obj = category.toJSON();
-obj.

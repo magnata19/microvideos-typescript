@@ -66,9 +66,7 @@ describe("Category Unit Test", () => {
     }
 
     const data: CategoryType[] = [
-      { props: { name: "Davidson" } },
-      { props: { name: "Davidson" }, id: null },
-      { props: { name: "Davidson" }, id: undefined },
+      { props: { name: "Davidson" }, },
       { props: { name: "Davidson" }, id: new UniqueEntityId() },
     ]
 

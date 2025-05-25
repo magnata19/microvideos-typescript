@@ -1,6 +1,6 @@
 import Category from "category/domain/entitites/category";
 import Entity from "../entity/entity";
-import { RepositoryInterface } from "./repository-contract";
+import { RepositoryInterface, SearchableRepositoryInterface } from "./repository-contract";
 import UniqueEntityId from "../value-objects/unique-entity-id.ov";
 import NotFoundError from "../../errors/not-found.error";
 
@@ -37,5 +37,10 @@ export default abstract class InMemoryRepository<E extends Entity> implements Re
     }
     return item;
   }
+}
 
+export abstract class InMemorySearchableRepository<E extends Entity> extends InMemoryRepository<E> implements SearchableRepositoryInterface<E, any, any> {
+  search(props: any): Promise<any> {
+    throw new Error("Method not implemented.");
+  }
 }

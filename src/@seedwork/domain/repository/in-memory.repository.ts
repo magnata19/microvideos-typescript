@@ -39,8 +39,12 @@ export default abstract class InMemoryRepository<E extends Entity> implements Re
   }
 }
 
-export abstract class InMemorySearchableRepository<E extends Entity> extends InMemoryRepository<E> implements SearchableRepositoryInterface<E, any, any> {
-  search(props: any): Promise<any> {
+export abstract class InMemorySearchableRepository<
+  E extends Entity,
+  SearchParams,
+  SearchResult> extends InMemoryRepository<E> implements SearchableRepositoryInterface<E, any, any> {
+  search(props: SearchResult): Promise<SearchParams> {
     throw new Error("Method not implemented.");
   }
+
 }

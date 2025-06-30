@@ -58,12 +58,48 @@ describe('InMemorySearchableRepository Unit test', () => {
       itemsFiltered = await repository['applyFilter'](items, 'nada-=aq');
       expect(itemsFiltered).toStrictEqual([]);
       expect(spyFilter).toHaveBeenCalledTimes(3);
-
+      //ir para aula 21 no modulo de repositorio no google drive
     })
   })
 
   describe('applySort method', () => {
+    it('should not sort items when sort is null', async () => {
+      const items = [
+        new StubEntity({ name: 'Item 1', price: 10 }),
+        new StubEntity({ name: 'Item 2', price: 20 }),
+      ]
 
+      const spyFilterMethod = jest.spyOn(items, 'filter');
+      let itemsFiltered = await repository['applySort'](items, null, null);
+      expect(itemsFiltered).toStrictEqual(items);
+      expect(spyFilterMethod).not.toHaveBeenCalled();
+
+      itemsFiltered = await repository['applySort'](items, 'price', 'asc');
+      expect(itemsFiltered).toStrictEqual(items);
+      expect(spyFilterMethod).not.toHaveBeenCalled();
+    })
+
+    it('should sort items', async () => {
+      const items = [
+        new StubEntity({ name: 'Item 2', price: 20 }),
+        new StubEntity({ name: 'Item 3', price: 20 }),
+        new StubEntity({ name: 'Item 1', price: 10 }),
+      ]
+
+      let itemsFiltered = await repository['applySort'](items, 'name', 'asc');
+      expect(itemsFiltered).toStrictEqual([
+        items[2],
+        items[0],
+        items[1],
+      ]);
+
+      itemsFiltered = await repository['applySort'](items, 'name', 'desc');
+      expect(itemsFiltered).toStrictEqual([
+        items[1],
+        items[0],
+        items[2],
+      ]);
+    })
   })
 
   describe('applyPaginate method', () => {

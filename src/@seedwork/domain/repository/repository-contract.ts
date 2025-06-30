@@ -59,7 +59,7 @@ export class SearchParam {
   }
 
 
-  get sort() {
+  get sort(): string | null {
     return this._sort;
   }
 
@@ -68,7 +68,7 @@ export class SearchParam {
   }
 
 
-  get sort_dir() {
+  get sort_dir(): SortDirection | null {
     return this._sort_dir;
   }
 
@@ -82,7 +82,7 @@ export class SearchParam {
   }
 
 
-  get filter() {
+  get filter(): string | null {
     return this._filter;
   }
 
@@ -139,5 +139,6 @@ export class SearchResult<E extends Entity, Filter = string> {
 
 export interface SearchableRepositoryInterface<E extends Entity, Filter = string,
   SearchInput = SearchParam, SearchOutput = SearchResult<E, Filter>> extends RepositoryInterface<E> {
+  sortableFields: string[];
   search(props: SearchInput): Promise<SearchOutput>
 }
